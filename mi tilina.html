@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta de San Valentín</title>
+    <style>
+        body {
+            font-family: 'Brush Script MT', cursive;
+            background-color: #ffdde1; /* Rosado pastel */
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Animación de corazones y girasoles */
+        .corazon, .girasol {
+            position: absolute;
+            font-size: 1.5em;
+            animation: caer 5s linear infinite;
+        }
+
+        .corazon {
+            color: red;
+        }
+
+        .girasol {
+            color: yellow;
+        }
+
+        @keyframes caer {
+            0% {
+                transform: translateY(-100vh) translateX(var(--random-x));
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(var(--random-x));
+                opacity: 0;
+            }
+        }
+
+        /* Contenedor principal */
+        .container {
+            text-align: center;
+        }
+
+        /* Sobre */
+        .sobre-cerrado {
+            position: relative;
+            width: 200px;
+            height: 150px;
+            background-color: #add8e6; /* Celeste */
+            border-radius: 10px;
+            margin: 0 auto;
+            cursor: pointer;
+            transition: transform 0.5s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transform-origin: top;
+        }
+
+        .sobre-cerrado:hover {
+            transform: scale(1.1);
+        }
+
+        .tapa {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background-color: #b0e2ff; /* Celeste más claro */
+            border-radius: 10px 10px 0 0;
+            clip-path: polygon(0 0, 50% 50%, 100% 0, 100% 100%, 0 100%);
+            transform-origin: top;
+            transition: transform 0.5s ease;
+            z-index: 2;
+        }
+
+        .sobre-cerrado.abierto .tapa {
+            transform: rotateX(180deg);
+            opacity: 0;
+        }
+
+        .cuerpo-sobre {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-color: #add8e6; /* Celeste */
+            border-radius: 0 0 10px 10px;
+            z-index: 1;
+        }
+
+        /* Carta */
+        .carta {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            max-width: 900px;
+            padding: 70px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .sobre-cerrado.abierto + .carta {
+            opacity: 5;
+            visibility: visible;
+            z-index: 3;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #e44d26;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1.2em;
+            font-family: 'Brush Script MT', cursive;
+            resize: vertical;
+            box-sizing: border-box;
+            min-height: 150px;
+        }
+
+        /* Botón */
+        .boton-redirigir {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #e44d26;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .boton-redirigir:hover {
+            background-color: #d6336c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sobre-cerrado">
+            <div class="tapa"></div>
+            <div class="cuerpo-sobre"></div>
+        </div>
+        <div class="carta">
+            <h2>Para Steph, con amor lulu💖 </h2>
+            <textarea id="mensaje" placeholder="Hola mi linda Stephanie, hoy cumplimos un mes más de novios y la verdad es que me encuentro muy feliz de que sea así cada día que pasa me siento mucho más enamorado de ti y no solo eso siempre que me escribes, siempre que te escucho y siempre que te veo confirmo cada vez que lo que siento por ti no lo volveré a sentir jamás, este sentimiento que tengo que me surge cuando estás tú ahí es muy lindo, único y realmente especial.
+
+Aunque no estemos juntos, aunque no nos veamos yo te siento cerca eres y serás siempre la mujer que yo más ame, tu eres el primer pensamiento cuando me despierto y el último en cuando yo me acuesto 
+Puedo decirte que te amo pero está palabra se queda muy corta por lo que yo siento por ti, talvez no pueda demostrártelo como yo quisiera pero aún así me esfuerzo mucho pero mucho en que sientas que yo lo hago y lo estaré haciendo en todo momento por qué tú y solo tú eres la persona con la cual yo quiero pasar cada uno de mis días junto a ti queriendote amándote mucho, bastante, demasiado con todo lo que es mi ser por qué si no lo hago así no te estaría amando no como yo quisiera 
+
+Feliz 4to mes mi niña hermosa espero tener muchos más junto a ti 🫶💟💖" disabled ></textarea>
+            <a href="#" class="boton-redirigir" id="redirigir">Click Here</a>
+        </div>
+    </div>
+
+    <script>
+        // Corazones y girasoles cayendo
+        const body = document.body;
+        const cantidadElementos = 30;
+
+        for (let i = 0; i < cantidadElementos; i++) {
+            const corazon = document.createElement('span');
+            corazon.classList.add('corazon');
+            corazon.textContent = '💞	';
+            corazon.style.left = `${Math.random() * 100}vw`;
+            corazon.style.animationDuration = `${Math.random() * 3 + 2}s`;
+            corazon.style.setProperty('--random-x', `${Math.random() * 200 - 100}px`);
+            body.appendChild(corazon);
+
+            const girasol = document.createElement('span');
+            girasol.classList.add('girasol');
+            girasol.textContent = '🌻';
+            girasol.style.left = `${Math.random() * 100}vw`;
+            girasol.style.animationDuration = `${Math.random() * 3 + 2}s`;
+            girasol.style.setProperty('--random-x', `${Math.random() * 200 - 100}px`);
+            body.appendChild(girasol);
+        }
+
+        // Abrir sobre y mostrar carta
+        const sobre = document.querySelector('.sobre-cerrado');
+        const carta = document.querySelector('.carta');
+
+        sobre.addEventListener('click', function() {
+            this.classList.toggle('abierto');
+        });
+
+        // Redirigir a sitio web
+        const redirigirBoton = document.getElementById('redirigir');
+        redirigirBoton.addEventListener('click', function(event) {
+            event.preventDefault();
+            const mensaje = document.getElementById('mensaje').value;
+            const url = 'https://open.spotify.com/playlist/58N5zdo9G2b6dtZNK3Qg1t?si=TWI7APEFQ-WBXempyC9HOQ&pi=7J9Z11lvQ6mkJ'; // Reemplaza con tu URL
+            window.location.href = url + '?mensaje=' + encodeURIComponent(mensaje);
+        });
+    </script>
+</body>
+</html>
